@@ -1,0 +1,78 @@
+/* ISMOS typefaces, self-hosted (Latin subsets, SIL Open Font License). Bricolage Grotesque is
+   the wordmark face only. */
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('/fonts/ismos/BricolageGrotesque-latin.woff2') format('woff2');
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Literata';
+  src: url('/fonts/ismos/Literata-latin.woff2') format('woff2');
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Literata';
+  src: url('/fonts/ismos/Literata-Italic-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('/fonts/ismos/IBMPlexSans-latin.woff2') format('woff2');
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('/fonts/ismos/IBMPlexSans-Italic-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('/fonts/ismos/IBMPlexMono-Regular-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('/fonts/ismos/IBMPlexMono-Medium-latin.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('/fonts/ismos/IBMPlexMono-SemiBold-latin.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+/* The ISMOS fonts are Latin subsets without the Bitcoin sign (U+20BF), so "₿OSS" fell back to a
+   system font. bitcoin-sign.woff2 holds only ₿, cut from IBM Plex Sans Regular (the b4os.dev
+   landing's "B4OS Bitcoin Sign", licence in bitcoin-sign-OFL.txt). Each face repeats its family's
+   descriptors and comes after the full face, so the browser takes ₿ from it and nothing else. */
+@font-face {
+  font-family: 'Literata';
+  src: url('/fonts/ismos/bitcoin-sign.woff2') format('woff2');
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+20BF;
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('/fonts/ismos/bitcoin-sign.woff2') format('woff2');
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+20BF;
+}

@@ -1,243 +1,636 @@
-/* Librería de Satoshi brand for Starlight.
-   Source: libreriadesatoshi.netlify.app design tokens (--color-* in :root/.dark and .light).
-   Accent: Bitcoin orange #f7931a (dark) · #d97e08 (light)
-   Type: Plus Jakarta Sans (UI/body) · DM Serif Display (headings) · JetBrains Mono (code) */
+/* ISMOS design system applied to Starlight.
+   Source of truth: the ISMOS tokens and components used by libreriadesatoshi-web
+   (src/styles/ismos/ in that repo). Tokens and self-hosted fonts are copied verbatim into
+   ./ismos/; this file only maps them onto Starlight's --sl-* variables and restyles the few
+   Starlight components that disagree with ISMOS (pills, shadows, coloured cards).
 
-:root {
-	--sl-font: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-	--sl-font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
-	--lds-font-display: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+   ISMOS rules this follows: Literata for titles (Regular, H3 Medium), IBM Plex Sans for text,
+   IBM Plex Mono for labels and code, Bricolage Grotesque for the wordmark only; radius 4 for
+   anything pressed, 8 the maximum; hairline borders, no drop shadows on cards; links in running
+   text underlined; 2 px focus ring; 120 ms motion for colour changes, nothing moves. */
 
-	/* Site tokens, kept verbatim so components can use them directly */
-	--lds-accent: #f7931a;
-	--lds-accent-contrast: #0d0800;
-	--lds-brand: #f7931a;
-	--lds-ambassador: #6b48ff;
-	--lds-ln-ai: #00d4ff;
-	--lds-grants: #22c55e;
-
-	/* Dark mode (default) */
-	--sl-color-accent-low: #3d2405;
-	--sl-color-accent: #f7931a;
-	--sl-color-accent-high: #ffc87d;
-	--sl-color-white: #ffffff;
-	--sl-color-gray-1: #f0ebe3; /* --color-text */
-	--sl-color-gray-2: #cfc7bc;
-	--sl-color-gray-3: #8c7e72; /* --color-text-muted */
-	--sl-color-gray-4: #5a5048;
-	--sl-color-gray-5: #272320; /* --color-border */
-	--sl-color-gray-6: #1a1714; /* --color-bg-card */
-	--sl-color-black: #0d0c0a; /* --color-bg */
-}
-
-:root[data-theme='light'] {
-	--lds-accent: #d97e08;
-
-	--sl-color-accent-low: #fbe9cf;
-	--sl-color-accent: #d97e08;
-	--sl-color-accent-high: #8a4d00;
-	--sl-color-white: #111008; /* --color-text */
-	--sl-color-gray-1: #221f18;
-	--sl-color-gray-2: #3a352c;
-	--sl-color-gray-3: #7a7060; /* --color-text-muted */
-	--sl-color-gray-4: #a99e8e;
-	--sl-color-gray-5: #d8d2c8; /* --color-border */
-	--sl-color-gray-6: #ede9e2; /* --color-bg-secondary */
-	--sl-color-gray-7: #faf8f5; /* --color-bg-card */
-	--sl-color-black: #f5f2ec; /* --color-bg */
-}
-
-/* Hero primary button: Bitcoin orange in both themes, dark text for contrast */
-.sl-link-button.primary {
-	background: var(--lds-accent);
-	border-color: var(--lds-accent);
-	color: var(--lds-accent-contrast);
-}
-.sl-link-button.primary:hover {
-	background: #e0820f;
-	border-color: #e0820f;
-}
-
-/* Card / link hover border matches the site's --color-border-hover */
-.card:hover,
-.sl-link-card:hover {
-	border-color: var(--lds-accent);
-}
-
-/* Headings use the display serif; DM Serif Display ships a single (400) weight. */
-.content-panel h1,
-.content-panel h2,
-.content-panel h3,
-.sl-markdown-content h1,
-.sl-markdown-content h2,
-.sl-markdown-content h3,
-h1.site-title {
-	font-family: var(--lds-font-display);
-	font-weight: 400;
-	letter-spacing: 0;
-}
-
-.site-title {
-	font-weight: 400;
-	letter-spacing: 0.01em;
-}
+@import './ismos/fonts.css';
+@import './ismos/tokens.css';
 
 /* ---------------------------------------------------------------------------
-   Chrome layout in the shape of docs.stripe.com: slim sticky banner, search
-   front and centre, dense low-chrome menus. Structure and spacing only —
-   colours and type stay on the Librería de Satoshi brand above.
+   1. Starlight variables → ISMOS tokens
    --------------------------------------------------------------------------- */
 
 :root {
+	--sl-font: var(--ism-font-sans);
+	--sl-font-mono: var(--ism-font-mono);
+
+	/* ISMOS type scale (screen, 16 px base): body 17/28, code 15. */
+	--sl-text-base: 1.0625rem;
+	--sl-text-body: 1.0625rem;
+	--sl-text-body-sm: 0.9375rem;
+	--sl-text-code: 0.9375rem;
+	--sl-text-code-sm: 0.8125rem;
+	--sl-line-height: 1.65;
+	--sl-line-height-headings: 1.2;
+
+	/* H1 27/34 on phones, then 36/42; H2 28/34; H3 21/28; H4 17. */
+	--sl-text-h1: 1.6875rem;
+	--sl-text-h2: 1.5rem;
+	--sl-text-h3: 1.3125rem;
+	--sl-text-h4: 1.0625rem;
+	--sl-text-h5: 1rem;
+
+	/* ISMOS elevation: cards and chrome carry no shadow; only menus and modals do. */
+	--sl-shadow-sm: none;
+	--sl-shadow-md: none;
+	--sl-shadow-lg: var(--ism-shadow-modal);
+
+	/* Layout: a reading column of 680 px, dense chrome. */
 	--sl-nav-height: 3.5rem;
 	--sl-nav-pad-y: 0.5rem;
-	--sl-nav-pad-x: 1.25rem;
+	--sl-nav-pad-x: 1rem;
 	--sl-sidebar-width: 16.5rem;
 	--sl-content-width: 46rem;
-	--sl-text-h1: 2.25rem;
-	--sl-text-h2: 1.5rem;
-	--sl-text-h3: 1.1875rem;
 }
 
-/* Banner: hairline rule instead of Starlight's heavier shadow, logo + wordmark
-   tight together on the left the way Stripe pairs its mark with "Docs". */
-.header {
-	border-bottom: 1px solid var(--sl-color-gray-5);
-	box-shadow: none;
-	backdrop-filter: saturate(180%) blur(12px);
+@media (min-width: 50em) {
+	:root {
+		--sl-nav-height: 4rem;
+		--sl-nav-pad-x: 2rem;
+		--sl-text-h1: 2.25rem;
+		--sl-text-h2: 1.75rem;
+		--sl-text-h3: 1.3125rem;
+		--sl-text-h4: 1.0625rem;
+	}
 }
+
+/* Light (default) */
+:root,
+:root[data-theme='light'] {
+	--sl-color-white: var(--ism-ink);
+	--sl-color-gray-1: var(--ism-ink);
+	--sl-color-gray-2: var(--ism-indigo);
+	--sl-color-gray-3: var(--ism-logwood-800);
+	--sl-color-gray-4: var(--ism-logwood-500);
+	--sl-color-gray-5: var(--ism-logwood-200);
+	--sl-color-gray-6: var(--ism-logwood-100);
+	--sl-color-gray-7: var(--ism-logwood-50);
+	--sl-color-black: var(--ism-paper);
+
+	--sl-color-accent-low: var(--ism-logwood-100);
+	--sl-color-accent: var(--ism-mauveine);
+	--sl-color-accent-high: var(--ism-logwood-800);
+
+	--sl-color-text: var(--ism-text);
+	--sl-color-text-accent: var(--ism-link);
+	--sl-color-text-invert: var(--ism-paper);
+	--sl-color-bg: var(--ism-surface);
+	--sl-color-bg-nav: var(--ism-surface);
+	--sl-color-bg-sidebar: var(--ism-surface);
+	--sl-color-bg-inline-code: var(--ism-logwood-100);
+	--sl-color-bg-accent: var(--ism-action);
+	--sl-color-hairline-light: var(--ism-hairline);
+	--sl-color-hairline: var(--ism-hairline);
+	--sl-color-hairline-shade: var(--ism-logwood-100);
+	--sl-color-backdrop-overlay: var(--ism-scrim);
+
+	/* Starlight's hue palette, used by badges and asides, on the ISMOS brand colours. */
+	--sl-color-orange-low: var(--ism-weld);
+	--sl-color-orange: var(--ism-madder-800);
+	--sl-color-orange-high: var(--ism-ink);
+	--sl-color-green-low: var(--ism-logwood-50);
+	--sl-color-green: var(--ism-indigo);
+	--sl-color-green-high: var(--ism-indigo);
+	--sl-color-blue-low: var(--ism-logwood-50);
+	--sl-color-blue: var(--ism-logwood-800);
+	--sl-color-blue-high: var(--ism-logwood-800);
+	--sl-color-purple-low: var(--ism-logwood-100);
+	--sl-color-purple: var(--ism-mauveine);
+	--sl-color-purple-high: var(--ism-mauveine);
+	--sl-color-red-low: #fff1e6;
+	--sl-color-red: var(--ism-madder-800);
+	--sl-color-red-high: var(--ism-madder-800);
+}
+
+/* Dark (ISMOS Hacker mode) */
+:root[data-theme='dark'] {
+	--sl-color-white: var(--ism-paper);
+	--sl-color-gray-1: var(--ism-paper);
+	--sl-color-gray-2: var(--ism-logwood-100);
+	--sl-color-gray-3: var(--ism-logwood-200);
+	--sl-color-gray-4: var(--ism-logwood-500);
+	--sl-color-gray-5: var(--ism-logwood-700);
+	--sl-color-gray-6: var(--ism-logwood);
+	--sl-color-gray-7: var(--ism-logwood);
+	--sl-color-black: var(--ism-ink);
+
+	--sl-color-accent-low: var(--ism-logwood);
+	--sl-color-accent: var(--ism-mauveine-300);
+	--sl-color-accent-high: var(--ism-mauveine-200);
+
+	--sl-color-text: var(--ism-text);
+	--sl-color-text-accent: var(--ism-link);
+	--sl-color-text-invert: var(--ism-paper);
+	--sl-color-bg: var(--ism-surface);
+	--sl-color-bg-nav: var(--ism-surface);
+	--sl-color-bg-sidebar: var(--ism-surface);
+	--sl-color-bg-inline-code: var(--ism-logwood);
+	--sl-color-bg-accent: var(--ism-action);
+	--sl-color-hairline-light: var(--ism-hairline);
+	--sl-color-hairline: var(--ism-hairline);
+	--sl-color-hairline-shade: var(--ism-ink);
+	--sl-color-backdrop-overlay: var(--ism-scrim);
+
+	--sl-color-orange-low: var(--ism-weld);
+	--sl-color-orange: var(--ism-madder);
+	--sl-color-orange-high: var(--ism-ink);
+	--sl-color-green-low: var(--ism-logwood);
+	--sl-color-green: var(--ism-mauveine-200);
+	--sl-color-green-high: var(--ism-mauveine-200);
+	--sl-color-blue-low: var(--ism-logwood);
+	--sl-color-blue: var(--ism-logwood-200);
+	--sl-color-blue-high: var(--ism-logwood-200);
+	--sl-color-purple-low: var(--ism-logwood);
+	--sl-color-purple: var(--ism-mauveine-300);
+	--sl-color-purple-high: var(--ism-mauveine-200);
+	--sl-color-red-low: var(--ism-logwood);
+	--sl-color-red: var(--ism-madder);
+	--sl-color-red-high: var(--ism-madder);
+}
+
+/* ---------------------------------------------------------------------------
+   2. Global rules: smoothing, focus ring, motion
+   --------------------------------------------------------------------------- */
+
+html {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* ISMOS focus ring: 2 px outline (Mauveine on light, Weld on dark), never colour alone. */
+:focus-visible {
+	outline: 2px solid var(--ism-focus);
+	outline-offset: 2px;
+}
+
+a,
+button {
+	transition:
+		color var(--ism-motion-fast) var(--ism-ease-standard),
+		background-color var(--ism-motion-fast) var(--ism-ease-standard),
+		border-color var(--ism-motion-fast) var(--ism-ease-standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0s !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0s !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+/* ---------------------------------------------------------------------------
+   3. Typography
+   --------------------------------------------------------------------------- */
+
+/* Literata for every title, Regular; H3 Medium; no tracking. */
+.sl-markdown-content :is(h1, h2, h3, h4, h5, h6):not(:where(.not-content *)),
+.content-panel h1,
+.hero h1 {
+	font-family: var(--ism-font-serif);
+	font-weight: 400;
+	letter-spacing: 0;
+	color: var(--ism-text-heading);
+	text-wrap: balance;
+}
+.sl-markdown-content h3:not(:where(.not-content *)),
+.sl-markdown-content h4:not(:where(.not-content *)) {
+	font-weight: 500;
+}
+.sl-markdown-content h4:not(:where(.not-content *)) {
+	font-family: var(--ism-font-sans);
+}
+
+/* H2 as an ISMOS section head: a 2 px rule in the text colour under the title. Starlight
+   wraps each heading with its anchor link and makes the heading inline, so the rule goes on
+   the wrapper to span the column. */
+.sl-markdown-content .sl-heading-wrapper.level-h2 {
+	padding-bottom: var(--ism-space-8);
+	border-bottom: var(--ism-rule-2) solid var(--ism-rule-strong);
+}
+
+/* Hero title on the ISMOS display size (48/52) instead of Starlight's 64 px. */
+.hero h1 {
+	font-size: clamp(1.6875rem, calc(0.5rem + 4vw), 3rem);
+	line-height: 1.1;
+}
+
+.sl-markdown-content p:not(:where(.not-content *)) {
+	text-wrap: pretty;
+}
+
+/* Links in running text are underlined, never colour alone. Cards, buttons and the
+   previous/next links are whole-block links and keep their own treatment. */
+.sl-markdown-content
+	a:not(:where(.not-content *, .sl-link-card *, .card *, .sl-link-button, .pagination-links *, .sl-anchor-link)) {
+	color: var(--ism-link);
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+.sl-markdown-content
+	a:not(:where(.not-content *, .sl-link-card *, .card *, .sl-link-button, .pagination-links *, .sl-anchor-link)):hover {
+	color: var(--ism-link-hover);
+}
+
+/* Inline code: radius 4 on the raised surface. */
+.sl-markdown-content code:not(:where(.not-content *)) {
+	border-radius: var(--ism-radius-4);
+}
+
+/* Blockquote: 2 px rule in the bar colour. */
+.sl-markdown-content blockquote:not(:where(.not-content *)) {
+	border-inline-start: var(--ism-rule-2) solid var(--ism-bar);
+	color: var(--ism-text-muted);
+}
+
+/* Tables: hairlines only. */
+.sl-markdown-content :is(th, td):not(:where(.not-content *)) {
+	border-color: var(--ism-hairline);
+}
+
+/* Labels (ISMOS): Plex Mono, uppercase, letterspaced 0.14em, muted. */
+.sidebar-content .large,
+.right-sidebar starlight-toc h2,
+.audience-picker__hint {
+	font-family: var(--ism-font-mono);
+	font-size: 0.6875rem;
+	line-height: 1rem;
+	font-weight: 500;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--ism-text-muted);
+}
+
+/* ---------------------------------------------------------------------------
+   4. Header: one edge-to-edge hairline, wordmark in Bricolage Grotesque, search as a 4 px field
+   --------------------------------------------------------------------------- */
+
+/* Starlight uses `.header` twice: the fixed, full-width <header> in PageFrame (which keeps its
+   hairline rule) and the inner flex box in Header.astro (which gets none). */
+header.header {
+	border-bottom: var(--ism-rule-1) solid var(--ism-hairline);
+	box-shadow: none;
+	background-color: color-mix(in srgb, var(--ism-surface) 96%, var(--ism-ink) 4%);
+}
+:root[data-theme='dark'] header.header {
+	background-color: var(--ism-surface);
+}
+div.header {
+	border-bottom: 0;
+	box-shadow: none;
+}
+
 .header .site-title {
-	gap: 0.5rem;
+	gap: 0.75rem;
+	font-family: var(--ism-font-wordmark);
 	font-size: 1rem;
+	font-weight: 600;
+	color: var(--ism-text);
 }
 .header .site-title img {
-	height: 1.5rem;
+	height: 2rem;
 	width: auto;
 }
 
-/* Search: the wide centred field that anchors the Stripe banner. */
 site-search {
 	flex: 1;
-	max-width: 28rem;
+	max-width: 26rem;
 	margin-inline: auto;
 }
 site-search button[data-open-modal] {
 	width: 100%;
+	min-height: var(--ism-size-control);
 	justify-content: flex-start;
-	border-radius: 9999px;
-	padding-block: 0.375rem;
-	background-color: var(--sl-color-gray-6);
+	border-radius: var(--ism-radius-4);
+	border-color: var(--ism-hairline);
+	background-color: var(--ism-surface);
+	color: var(--ism-text-muted);
+}
+site-search button[data-open-modal]:hover {
+	border-color: var(--ism-border-strong);
+	color: var(--ism-text);
 }
 site-search button[data-open-modal] > kbd {
 	margin-inline-start: auto;
+	border-radius: var(--ism-radius-4);
+	background-color: var(--ism-surface-raised);
+	font-family: var(--ism-font-mono);
+}
+site-search dialog {
+	border-radius: var(--ism-radius-8);
+	border-color: var(--ism-hairline);
+	background-color: var(--ism-surface);
+	box-shadow: var(--ism-shadow-modal);
 }
 
-/* Sidebar menus: dense, borderless rows with an indent guideline, and small
-   uppercase eyebrow labels over each group. */
+/* Social icons and pickers in the header: muted, text colour on hover. */
+.social-icons a,
+starlight-theme-select label,
+starlight-lang-select label {
+	color: var(--ism-text-muted);
+}
+.social-icons a:hover,
+starlight-theme-select label:hover,
+starlight-lang-select label:hover {
+	color: var(--ism-text);
+}
+
+/* ---------------------------------------------------------------------------
+   5. Sidebar and table of contents: dense, hairline guides, current page in the link colour
+   --------------------------------------------------------------------------- */
+
 .sidebar-pane {
-	border-inline-end: 1px solid var(--sl-color-gray-5);
-	padding-top: 0.75rem;
+	border-inline-end: var(--ism-rule-1) solid var(--ism-hairline);
+	padding-top: var(--ism-space-12);
 }
 .sidebar-content {
 	font-size: var(--sl-text-sm);
 }
 .sidebar-content ul.top-level > li + li {
-	margin-top: 1.25rem;
-}
-.sidebar-content .large {
-	font-size: 0.6875rem;
-	font-weight: 600;
-	letter-spacing: 0.08em;
-	text-transform: uppercase;
-	color: var(--sl-color-gray-3);
+	margin-top: var(--ism-space-24);
 }
 .sidebar-content ul ul {
-	margin-top: 0.375rem;
-	padding-inline-start: 0.75rem;
-	border-inline-start: 1px solid var(--sl-color-gray-5);
+	margin-top: var(--ism-space-8);
+	padding-inline-start: var(--ism-space-12);
+	border-inline-start: var(--ism-rule-1) solid var(--ism-hairline);
 }
 .sidebar-content a {
-	border-radius: 0.375rem;
+	border-radius: var(--ism-radius-4);
 	padding-block: 0.3125rem;
-	line-height: 1.35;
-	color: var(--sl-color-gray-2);
+	line-height: 1.4;
+	color: var(--ism-text);
 }
-.sidebar-content a:hover {
-	background-color: var(--sl-color-gray-6);
-	color: var(--sl-color-white);
+.sidebar-content a:hover,
+.sidebar-content a:focus {
+	background-color: var(--ism-surface-raised);
+	color: var(--ism-text);
 }
 .sidebar-content a[aria-current='page'],
-.sidebar-content a[aria-current='page']:hover {
+.sidebar-content a[aria-current='page']:hover,
+.sidebar-content a[aria-current='page']:focus {
 	background-color: transparent;
-	color: var(--sl-color-accent);
+	color: var(--ism-link);
 	font-weight: 600;
 }
 
-/* Right-hand contents list: same eyebrow treatment, quieter rows. */
-.right-sidebar starlight-toc h2 {
-	font-size: 0.6875rem;
-	font-weight: 600;
-	letter-spacing: 0.08em;
-	text-transform: uppercase;
-	color: var(--sl-color-gray-3);
-}
 .right-sidebar starlight-toc a {
 	font-size: var(--sl-text-xs);
 	padding-block: 0.25rem;
-	border-inline-start: 1px solid var(--sl-color-gray-5);
-	padding-inline-start: 0.75rem;
+	padding-inline-start: var(--ism-space-12);
+	border-inline-start: var(--ism-rule-1) solid var(--ism-hairline);
+	color: var(--ism-text-muted);
+}
+.right-sidebar starlight-toc a:hover {
+	color: var(--ism-text);
 }
 .right-sidebar starlight-toc a[aria-current='true'] {
-	border-inline-start-color: var(--sl-color-accent);
+	color: var(--ism-link);
+	border-inline-start: var(--ism-rule-2) solid var(--ism-bar);
 }
 
 /* ---------------------------------------------------------------------------
-   Audience filter on the home page. Until a choice is made nothing is hidden,
-   so the page works the same with JavaScript disabled.
+   6. Components: buttons, cards, asides, pagination
    --------------------------------------------------------------------------- */
 
+/* ISMOS button: radius 4, 44 px target, 2 px border. Primary = action fill with Paper text;
+   secondary = outline in the text colour; hover takes the pressed colour, nothing moves. */
+.sl-link-button {
+	min-height: var(--ism-tap-target);
+	padding: 0 var(--ism-space-16);
+	border-radius: var(--ism-radius-4);
+	border-width: 2px;
+	font-size: 0.9375rem;
+	font-weight: 500;
+	line-height: 1;
+	transition:
+		background-color var(--ism-motion-fast) var(--ism-ease-standard),
+		border-color var(--ism-motion-fast) var(--ism-ease-standard),
+		color var(--ism-motion-fast) var(--ism-ease-standard);
+}
+.sl-link-button.primary {
+	background: var(--ism-action);
+	border-color: var(--ism-action);
+	color: var(--ism-on-action);
+}
+.sl-link-button.primary:hover {
+	background: var(--ism-action-pressed);
+	border-color: var(--ism-action-pressed);
+	color: var(--ism-on-action);
+}
+.sl-link-button.secondary {
+	background: transparent;
+	border-color: var(--ism-text);
+	color: var(--ism-text);
+}
+.sl-link-button.secondary:hover {
+	background: var(--ism-surface-raised);
+}
+.sl-link-button.minimal {
+	border-color: transparent;
+	color: var(--ism-text);
+	font-weight: 600;
+}
+.sl-link-button.minimal:hover {
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+
+/* Cards: 1 px hairline, radius 4, no shadow; hover darkens the border to the text colour. */
+.sl-link-card,
+.card {
+	border: var(--ism-rule-1) solid var(--ism-hairline);
+	border-radius: var(--ism-radius-4);
+	background: var(--ism-surface);
+	box-shadow: none;
+	transition: border-color var(--ism-motion-fast) var(--ism-ease-standard);
+}
+.sl-link-card:hover,
+.card:hover {
+	background: var(--ism-surface);
+	border-color: var(--ism-text);
+}
+.sl-link-card .title,
+.card .title {
+	font-family: var(--ism-font-serif);
+	font-weight: 500;
+	font-size: 1.3125rem;
+	line-height: 1.75rem;
+	color: var(--ism-text-heading);
+}
+.sl-link-card .description,
+.card .body {
+	font-size: 0.9375rem;
+	line-height: 1.5rem;
+	color: var(--ism-text);
+}
+.sl-link-card .icon {
+	color: var(--ism-text-muted);
+}
+.sl-link-card:hover .icon {
+	color: var(--ism-text);
+}
+/* Starlight rotates card icon colours by position; ISMOS wants one neutral hairline. */
+.card .icon {
+	border-color: var(--ism-hairline);
+	background-color: var(--ism-surface-raised);
+	border-radius: var(--ism-radius-4);
+}
+
+/* Asides on the ISMOS status tokens. Note = info, tip = brand, caution = Weld highlight with
+   Ink text, danger = alert. */
+.starlight-aside {
+	border-radius: var(--ism-radius-4);
+	border-inline-start-width: var(--ism-rule-2);
+}
+.starlight-aside--note {
+	--sl-color-asides-text-accent: var(--ism-status-info);
+	--sl-color-asides-border: var(--ism-status-info);
+	background-color: var(--ism-status-info-bg);
+}
+.starlight-aside--tip {
+	--sl-color-asides-text-accent: var(--ism-link);
+	--sl-color-asides-border: var(--ism-bar);
+	background-color: var(--ism-surface-raised);
+}
+.starlight-aside--caution {
+	--sl-color-asides-text-accent: var(--ism-status-warning);
+	--sl-color-asides-border: var(--ism-status-warning);
+	background-color: var(--ism-status-warning-bg);
+	color: var(--ism-status-warning);
+}
+.starlight-aside--caution .starlight-aside__content a {
+	color: var(--ism-ink);
+}
+.starlight-aside--danger {
+	--sl-color-asides-text-accent: var(--ism-status-error);
+	--sl-color-asides-border: var(--ism-status-error);
+	background-color: var(--ism-surface-raised);
+}
+.starlight-aside__title {
+	font-family: var(--ism-font-sans);
+	font-size: 0.9375rem;
+	font-weight: 600;
+}
+
+/* Mobile "On this page" toggle: radius 4, hairline. */
+mobile-starlight-toc .toggle {
+	border-radius: var(--ism-radius-4);
+	border-color: var(--ism-hairline);
+}
+mobile-starlight-toc details[open] .toggle {
+	border-color: var(--ism-border-strong);
+}
+
+/* Steps: the numbered marker on a hairline circle. */
+.sl-steps > li::before {
+	box-shadow: inset 0 0 0 1px var(--ism-hairline);
+	background-color: var(--ism-surface-raised);
+	color: var(--ism-text);
+	font-family: var(--ism-font-mono);
+	font-weight: 500;
+}
+
+/* Previous / next links as cards. */
+.pagination-links a {
+	border: var(--ism-rule-1) solid var(--ism-hairline);
+	border-radius: var(--ism-radius-4);
+	box-shadow: none;
+	color: var(--ism-text-muted);
+}
+.pagination-links a:hover {
+	border-color: var(--ism-text);
+}
+.pagination-links .link-title {
+	font-family: var(--ism-font-serif);
+	font-size: 1.3125rem;
+	color: var(--ism-text-heading);
+}
+
+/* Footer meta: muted, small. */
+footer .meta,
+footer .meta a {
+	color: var(--ism-text-muted);
+}
+footer .meta a:hover {
+	color: var(--ism-text);
+}
+
+/* ---------------------------------------------------------------------------
+   7. Home page: hero and audience filter
+   --------------------------------------------------------------------------- */
+
+.hero .tagline {
+	font-size: 1.1875rem;
+	line-height: 1.875rem;
+	color: var(--ism-text-muted);
+}
+
+/* Until a choice is made nothing is hidden, so the page works the same with JavaScript
+   disabled. Buttons follow the ISMOS secondary button; the pressed one takes the action fill. */
 .audience-picker {
-	margin-block: 1.5rem 2.5rem;
+	margin-block: var(--ism-space-24) var(--ism-space-48);
 }
 .audience-picker__buttons {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 0.75rem;
+	gap: var(--ism-space-12);
 	align-items: center;
 	justify-content: center;
 }
 .audience-picker button {
-	font: inherit;
-	font-weight: 600;
-	cursor: pointer;
-	padding: 0.625rem 1.25rem;
-	border-radius: 9999px;
-	border: 1px solid var(--sl-color-gray-5);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: var(--ism-tap-target);
+	padding: 0 var(--ism-space-16);
+	border-radius: var(--ism-radius-4);
+	border: 2px solid var(--ism-text);
 	background: transparent;
-	color: var(--sl-color-white);
+	color: var(--ism-text);
+	font: inherit;
+	font-size: 0.9375rem;
+	font-weight: 500;
+	line-height: 1;
+	cursor: pointer;
 }
 .audience-picker button:hover {
-	border-color: var(--lds-accent);
+	background: var(--ism-surface-raised);
 }
 .audience-picker button[aria-pressed='true'] {
-	background: var(--lds-accent);
-	border-color: var(--lds-accent);
-	color: var(--lds-accent-contrast);
+	background: var(--ism-action);
+	border-color: var(--ism-action);
+	color: var(--ism-on-action);
+}
+.audience-picker button[aria-pressed='true']:hover {
+	background: var(--ism-action-pressed);
+	border-color: var(--ism-action-pressed);
 }
 .audience-picker__campus {
+	display: inline-flex;
+	align-items: center;
+	min-height: var(--ism-tap-target);
+	padding: 0 var(--ism-space-8);
+	font-size: 0.9375rem;
 	font-weight: 600;
 	text-decoration: none;
-	color: var(--sl-color-gray-2);
-	padding: 0.625rem 0.5rem;
+	color: var(--ism-text);
 }
 .audience-picker__campus:hover {
-	color: var(--sl-color-accent);
+	text-decoration: underline;
+	text-underline-offset: 2px;
 }
 .audience-picker__hint {
-	margin-block: 0.875rem 0;
+	margin-block: var(--ism-space-16) 0;
 	text-align: center;
-	font-size: var(--sl-text-sm);
-	color: var(--sl-color-gray-3);
 }
 
 :root[data-audience='student'] .audience-scope[data-audience-for='teacher'],

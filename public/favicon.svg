@@ -1,9 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="800" height="800">
-  <rect x="0" y="0" width="200" height="200" rx="32" fill="#1C1917"/>
-  <g transform="translate(32, 52)">
-    <path d="M64 6 C64 6, 34 2, 4 16 C2 17, 0 19, 0 22 L0 92 C0 95, 2 97, 4 96 C34 84, 64 86, 64 86Z" fill="#f5f0eb" opacity="0.85"/>
-    <path d="M72 6 C72 6, 102 2, 132 16 C134 17, 136 19, 136 22 L136 92 C136 95, 134 97, 132 96 C102 84, 72 86, 72 86Z" fill="#f5f0eb" opacity="0.85"/>
-    <line x1="68" y1="4" x2="68" y2="88" stroke="#F7931A" stroke-width="3" stroke-linecap="round"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+  <style>
+    polygon { fill: #12110c; }
+    @media (prefers-color-scheme: dark) {
+      polygon { fill: #ffffff; }
+    }
+  </style>
+  <polygon points="426.7 431.22 426.7 571.5 309.05 447.51 345.25 349.77 426.7 431.22" />
+  <polygon points="173.3 431.22 173.3 571.5 290.95 447.51 254.75 349.77 173.3 431.22" />
+  <polygon points="426.7 168.77 426.7 28.5 309.05 152.48 345.25 250.22 426.7 168.77" />
+  <polygon points="173.3 168.77 173.3 28.5 290.95 152.48 254.75 250.22 173.3 168.77" />
+  <polygon points="431.23 173.3 571.5 173.3 446.61 290.95 349.78 254.75 431.23 173.3" />
+  <polygon points="431.22 426.7 571.5 426.7 446.61 309.05 349.78 345.25 431.22 426.7" />
+  <polygon points="168.78 173.3 28.5 173.3 152.48 290.95 250.22 254.75 168.78 173.3" />
+  <polygon points="168.77 426.7 28.5 426.7 152.48 309.05 250.22 345.25 168.77 426.7" />
 </svg>

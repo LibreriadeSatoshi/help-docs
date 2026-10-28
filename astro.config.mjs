@@ -4,24 +4,38 @@ import starlight from '@astrojs/starlight';
 import markdoc from '@astrojs/markdoc';
 
 const REPO = 'https://github.com/LibreriadeSatoshi/moodle-help-docs';
-const MOODLE = 'https://moodle.libreriadesatoshi.com';
+const MOODLE = 'https://campus.ismos.xyz';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://docs.libreriadesatoshi.com',
+	site: 'https://docs.ismos.xyz',
 	integrations: [
 		starlight({
 			title: {
-				es: 'Librería de Satoshi DOCS',
-				en: 'Librería de Satoshi DOCS',
+				es: 'ISMOS Docs',
+				en: 'ISMOS Docs',
 			},
-			description: 'Guías de ayuda para la plataforma de cursos de Librería de Satoshi.',
+			description: 'Guías de ayuda para la plataforma de cursos de ISMOS.',
+			// ISMOS mark, Ink on light and Paper on dark (same shapes as the web's Logo.astro).
 			logo: {
 				light: './src/assets/logo-light.svg',
 				dark: './src/assets/logo-dark.svg',
-				alt: 'Librería de Satoshi',
+				alt: 'ISMOS',
 			},
+			// ISMOS design system on top of Starlight; fonts are self-hosted from public/fonts/ismos.
 			customCss: ['./src/styles/custom.css'],
+			components: {
+				// Light when the device states no preference (ISMOS); Starlight defaults to dark.
+				ThemeProvider: './src/components/ThemeProvider.astro',
+			},
+			expressiveCode: {
+				// ISMOS: radius 4, hairline frame, no drop shadow.
+				styleOverrides: {
+					borderRadius: '4px',
+					borderColor: 'var(--ism-hairline)',
+					frames: { shadowColor: 'transparent', frameBoxShadowCssValue: 'none' },
+				},
+			},
 			head: [
 				{
 					// Applies the saved audience filter before first paint, so the cards
@@ -29,15 +43,6 @@ export default defineConfig({
 					tag: 'script',
 					content:
 						"try{var a=localStorage.getItem('lds-audience');if(a)document.documentElement.dataset.audience=a}catch(e){}",
-				},
-				{ tag: 'link', attrs: { rel: 'preconnect', href: 'https://fonts.googleapis.com' } },
-				{ tag: 'link', attrs: { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: true } },
-				{
-					tag: 'link',
-					attrs: {
-						rel: 'stylesheet',
-						href: 'https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap',
-					},
 				},
 			],
 			defaultLocale: 'root',

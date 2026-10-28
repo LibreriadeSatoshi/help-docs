@@ -1,6 +1,6 @@
-# Librería de Satoshi · Help Center
+# ISMOS · Help Center
 
-Public help docs for the Librería de Satoshi course platform (Moodle), served at **https://docs.libreriadesatoshi.com**. Static site, no login, independent of Moodle.
+Public help docs for the ISMOS course platform (Moodle, formerly Librería de Satoshi), served at **https://docs.ismos.xyz**. Static site, no login, independent of Moodle.
 
 Built with [Astro](https://astro.build) + [Starlight](https://starlight.astro.build) and authored in [Markdoc](https://markdoc.dev) (`.mdoc`). Jira: ENG-453.
 
@@ -42,12 +42,20 @@ Rules:
 3. Link between pages with absolute paths (`/acceso/login-nostr/`, `/en/acceso/login-nostr/`).
 4. `npm run build` must pass with no warnings.
 
+## Look and feel
+
+The site uses the ISMOS design system, the same one as [libreriadesatoshi-web](https://github.com/LibreriadeSatoshi/libreriadesatoshi-web):
+
+- `src/styles/ismos/tokens.css` and `fonts.css` are copies of that repo's `src/styles/ismos/` (tokens keyed on Starlight's `data-theme` instead of `.dark`/`.light`). Fonts are self-hosted in `public/fonts/ismos/`. When the design system changes there, copy the files again.
+- `src/styles/custom.css` maps the tokens onto Starlight's `--sl-*` variables and restyles the few Starlight components that disagree with ISMOS (no pills, no card shadows, radius 4).
+- `src/components/ThemeProvider.astro` overrides Starlight's only to default to light when the device states no preference.
+
 ## Deploy
 
-Netlify, from `netlify.toml` (`npm run build` → `dist/`). Point `docs.libreriadesatoshi.com` (Cloudflare DNS) at the Netlify site.
+Netlify, from `netlify.toml` (`npm run build` → `dist/`). `docs.ismos.xyz` is a CNAME (Cloudflare DNS, proxy off) to the Netlify site.
 
 ## TODO
 
-- Open Graph / social preview image (`public/logo_dark_bg.svg` is the full lockup; needs a PNG for OG).
+- Open Graph / social preview image (the ISMOS lockup lives in the web repo's `public/media-kit/logos/`; needs a PNG for OG).
 - Sections `cursos/` (enrolment, certificates) once the flows are confirmed with the team.
 - Contact channel for the "escríbenos / contact us" mentions (support email or form).

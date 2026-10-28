@@ -1,0 +1,139 @@
+/* ISMOS design tokens, copied from libreriadesatoshi-web/src/styles/ismos/tokens.css (generated
+   from the ISMOS package's tokens.json). Every name is prefixed --ism- so it never collides with
+   Starlight's --sl-* variables.
+
+   One difference from the web: Starlight switches theme with `data-theme="light|dark"` on <html>
+   instead of `.light`/`.dark` classes, so the semantic blocks are keyed on that attribute.
+   Light is the default; dark = ISMOS Hacker mode. */
+:root {
+	--ism-mauveine: #4d01e0;
+	--ism-indigo: #2a2550;
+	--ism-paper: #ffffff;
+	--ism-logwood: #251d3a;
+	--ism-ink: #000000;
+	--ism-madder: #ff7700;
+	--ism-weld: #ffd23f;
+	--ism-logwood-800: #544281;
+	--ism-madder-800: #8b3d00;
+	--ism-mauveine-300: #9293ff;
+	--ism-mauveine-200: #bfc3ff;
+	--ism-logwood-50: #f8f6fe;
+	--ism-logwood-100: #efecfd;
+	--ism-logwood-200: #dfd8fb;
+	--ism-logwood-300: #cabdf7;
+	--ism-logwood-400: #af9bec;
+	--ism-logwood-500: #9f87e1;
+	--ism-logwood-600: #8369c4;
+	--ism-logwood-700: #6b55a2;
+	--ism-logwood-900: #453867;
+	--ism-logwood-950: var(--ism-logwood);
+	--ism-font-serif:
+		Literata, 'Noto Serif SC', 'Noto Serif JP', 'Noto Naskh Arabic', 'Noto Serif Devanagari',
+		'Noto Serif Bengali', Georgia, serif;
+	--ism-font-sans:
+		'IBM Plex Sans', 'IBM Plex Sans Arabic', 'IBM Plex Sans Devanagari', 'IBM Plex Sans SC',
+		'IBM Plex Sans JP', 'Noto Sans Bengali', system-ui, sans-serif;
+	--ism-font-mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+	--ism-font-wordmark: 'Bricolage Grotesque', sans-serif;
+	--ism-space-2: 2px;
+	--ism-space-4: 4px;
+	--ism-space-8: 8px;
+	--ism-space-12: 12px;
+	--ism-space-16: 16px;
+	--ism-space-24: 24px;
+	--ism-space-32: 32px;
+	--ism-space-48: 48px;
+	--ism-space-64: 64px;
+	--ism-space-96: 96px;
+	--ism-radius-0: 0px;
+	--ism-radius-4: 4px;
+	--ism-radius-8: 8px;
+	--ism-radius-circle: 50%;
+	--ism-rule-1: 1px;
+	--ism-rule-2: 2px;
+	--ism-rule-6: 6px;
+	--ism-content-max: 1200px;
+	--ism-gutter: 24px;
+	--ism-page-margin: 32px;
+	--ism-page-margin-mobile: 16px;
+	--ism-reading-column: 680px;
+	--ism-tap-target: 44px;
+	--ism-size-control-sm: 32px;
+	--ism-size-control: 44px;
+	--ism-size-input: 48px;
+	--ism-size-tabbar: 56px;
+	--ism-motion-fast: 120ms;
+	--ism-motion-base: 200ms;
+	--ism-motion-slow: 280ms;
+	--ism-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+	--ism-ease-exit: cubic-bezier(0.4, 0, 1, 1);
+	--ism-shadow-float: 0 2px 8px rgba(0, 0, 0, 0.1);
+	--ism-shadow-modal: 0 8px 24px rgba(0, 0, 0, 0.16);
+	--ism-opacity-motif: 0.25;
+	--ism-opacity-scrim: 0.48;
+}
+
+:root,
+:root[data-theme='light'] {
+	--ism-surface: var(--ism-paper);
+	--ism-surface-raised: var(--ism-logwood-50);
+	--ism-text: var(--ism-ink);
+	--ism-text-heading: var(--ism-ink);
+	--ism-text-muted: var(--ism-logwood-800);
+	--ism-hairline: var(--ism-logwood-200);
+	--ism-rule-strong: var(--ism-ink);
+	--ism-link: var(--ism-mauveine);
+	--ism-link-hover: var(--ism-logwood-800);
+	--ism-alert: var(--ism-madder-800);
+	--ism-bar: var(--ism-mauveine);
+	--ism-track: var(--ism-logwood-200);
+	--ism-action: var(--ism-ink);
+	--ism-on-action: var(--ism-paper);
+	--ism-action-pressed: var(--ism-logwood);
+	--ism-disabled-bg: var(--ism-logwood-100);
+	--ism-disabled-text: var(--ism-logwood-800);
+	--ism-highlight: var(--ism-weld);
+	--ism-on-highlight: var(--ism-ink);
+	--ism-focus: var(--ism-mauveine);
+	--ism-status-info: var(--ism-logwood-800);
+	--ism-status-info-bg: var(--ism-logwood-50);
+	--ism-status-success: var(--ism-indigo);
+	--ism-status-warning-bg: var(--ism-weld);
+	--ism-status-warning: var(--ism-ink);
+	--ism-status-error: var(--ism-madder-800);
+	--ism-border-input: var(--ism-logwood-700);
+	--ism-border-strong: var(--ism-ink);
+	--ism-scrim: rgba(0, 0, 0, 0.48);
+}
+
+:root[data-theme='dark'] {
+	--ism-surface: var(--ism-ink);
+	--ism-surface-raised: var(--ism-logwood);
+	--ism-text: var(--ism-paper);
+	--ism-text-heading: var(--ism-paper);
+	--ism-text-muted: var(--ism-logwood-200);
+	--ism-hairline: var(--ism-logwood-700);
+	--ism-rule-strong: var(--ism-paper);
+	--ism-link: var(--ism-mauveine-200);
+	--ism-link-hover: var(--ism-paper);
+	--ism-alert: var(--ism-madder);
+	--ism-bar: var(--ism-mauveine-300);
+	--ism-track: var(--ism-logwood-700);
+	--ism-action: var(--ism-mauveine);
+	--ism-on-action: var(--ism-paper);
+	--ism-action-pressed: var(--ism-indigo);
+	--ism-disabled-bg: var(--ism-logwood);
+	--ism-disabled-text: var(--ism-logwood-200);
+	--ism-highlight: var(--ism-weld);
+	--ism-on-highlight: var(--ism-ink);
+	--ism-focus: var(--ism-weld);
+	--ism-status-info: var(--ism-logwood-200);
+	--ism-status-info-bg: var(--ism-logwood);
+	--ism-status-success: var(--ism-mauveine-200);
+	--ism-status-warning-bg: var(--ism-weld);
+	--ism-status-warning: var(--ism-ink);
+	--ism-status-error: var(--ism-madder);
+	--ism-border-input: var(--ism-logwood-400);
+	--ism-border-strong: var(--ism-paper);
+	--ism-scrim: rgba(0, 0, 0, 0.48);
+}
