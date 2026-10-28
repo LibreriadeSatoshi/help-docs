@@ -577,7 +577,7 @@ footer .meta a:hover {
 /* Until a choice is made nothing is hidden, so the page works the same with JavaScript
    disabled. Buttons follow the ISMOS secondary button; the pressed one takes the action fill. */
 .audience-picker {
-	margin-block: var(--ism-space-24) var(--ism-space-48);
+	margin-block: var(--ism-space-8) var(--ism-space-48);
 }
 .audience-picker__buttons {
 	display: flex;
@@ -636,4 +636,38 @@ footer .meta a:hover {
 :root[data-audience='student'] .audience-scope[data-audience-for='teacher'],
 :root[data-audience='teacher'] .audience-scope[data-audience-for='student'] {
 	display: none;
+}
+
+/* Big ISMOS mark in the hero, as on the web: Mauveine, oversized and bleeding off the right
+   edge of the page. The mark is a CSS mask so one file serves both themes. */
+[data-has-hero] .main-pane {
+	overflow-x: clip;
+}
+.hero > .hero-html {
+	overflow: visible;
+	justify-content: center;
+}
+.hero-mark {
+	display: block;
+	width: min(70%, 20rem);
+	aspect-ratio: 1;
+	background-color: var(--ism-mauveine);
+	-webkit-mask: url('/ismos-mark.svg') center / contain no-repeat;
+	mask: url('/ismos-mark.svg') center / contain no-repeat;
+}
+@media (min-width: 50rem) {
+	.hero {
+		padding-block: clamp(1rem, 3vmin, 2rem);
+		padding-bottom: 0;
+	}
+	.hero > .hero-html {
+		justify-content: flex-start;
+		width: 100%;
+	}
+	.hero-mark {
+		width: clamp(15rem, 28vw, 24rem);
+		margin-inline-start: 0;
+		margin-inline-end: calc(-1 * var(--ism-space-48, 3rem) - 6vw);
+		flex-shrink: 0;
+	}
 }

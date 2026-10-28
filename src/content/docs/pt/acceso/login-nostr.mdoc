@@ -1,0 +1,89 @@
+---
+title: Entrar com Nostr
+description: Faça login no campus sem senha nem e-mail, assinando com sua identidade Nostr a partir de uma extensão do navegador.
+sidebar:
+  order: 2
+---
+
+Se você tem uma identidade Nostr (uma `npub`), pode entrar no campus com um clique. Sua extensão assina um desafio e o campus verifica a assinatura. **Sua chave privada nunca sai do seu navegador**: o servidor só conhece sua chave pública.
+
+## O que você precisa
+
+Uma extensão de navegador compatível com NIP-07. As mais usadas:
+
+- [Alby](https://getalby.com/) (Chrome, Firefox, Brave)
+- [nos2x](https://github.com/fiatjaf/nos2x) (Chrome, Brave) ou [nos2x-fox](https://diegogurpegui.com/nos2x-fox/) (Firefox)
+- Flamingo, Nostore e outras compatíveis com NIP-07
+
+{% aside type="caution" title="Celular" %}
+As extensões de navegador não funcionam na maioria dos navegadores de celular. No celular, use [GitHub ou Google](/pt/acceso/login-github-google/), ou o [usuário e senha](/pt/acceso/crear-cuenta/) da sua conta.
+{% /aside %}
+
+## Passos
+
+{% steps %}
+
+1. Instale a extensão e crie ou importe sua chave Nostr seguindo as instruções da própria extensão.
+
+2. Abra [campus.ismos.xyz/login](https://campus.ismos.xyz/login/index.php) e clique em **⚡ Log in with Nostr**, o botão roxo abaixo do formulário de usuário e senha. Ele demora alguns segundos para aparecer.
+
+3. A extensão vai pedir permissão para compartilhar sua **chave pública**. Aceite.
+
+4. Em seguida vai pedir para **assinar** a solicitação de login. Aceite também. Você está assinando um evento de uso único que expira em dois minutos; não é uma transação nem autoriza nada mais.
+
+5. Em poucos segundos você entra no seu Painel.
+
+{% /steps %}
+
+## A primeira vez
+
+Ao entrar pela primeira vez com uma chave Nostr, sua conta é criada automaticamente:
+
+- **Nome visível**: vem do seu perfil Nostr (o `display_name` do seu evento de perfil). Se você não tem perfil publicado, é usado um nome genérico que você pode mudar no [seu perfil](/pt/cuenta/perfil-e-idioma/).
+- **E-mail**: nenhum é pedido. O campus gera um endereço fictício a partir da sua `npub`. Leia abaixo o que isso implica.
+
+## Você não vai receber e-mails
+
+Para preservar sua privacidade, ao entrar com Nostr **nenhum e-mail é pedido**: o campus monta um endereço fictício a partir da sua `npub`. Esse endereço não existe, então:
+
+- **Você não receberá nenhum e-mail nem comunicação do campus**: nem avisos de cursos, nem respostas nos fóruns, nem lembretes de entregas, nem novidades.
+- Sua identidade continua sem estar ligada a um e-mail real, que é justamente o objetivo.
+
+É o comportamento padrão e, para muita gente, é o desejado. Mas se você espera receber avisos e nada chega, essa é a razão: não é uma falha.
+
+### Se você quiser recebê-los
+
+Você precisa **substituir manualmente** esse endereço fictício pelo seu e-mail real no [seu perfil do campus](/pt/cuenta/perfil-e-idioma/): avatar → **Perfil** → **Editar perfil** → campo **Endereço de e-mail**. Você receberá um e-mail de confirmação no endereço novo.
+
+{% aside type="caution" title="É uma decisão com contrapartida" %}
+Assim que você colocar um e-mail real, sua conta do campus fica vinculada a ele. Se você entrou com Nostr justamente para evitar isso, deixe o endereço fictício como está e consulte os avisos dentro do campus, em **Preferências → Preferências de notificação**.
+{% /aside %}
+
+### Um caminho intermediário: um e-mail que não seja o seu de sempre
+
+Não é preciso escolher entre não receber nada e dar seu endereço pessoal. Você pode colocar um endereço que receba e-mail mas que não esteja ligado à sua identidade:
+
+- **Uma conta nova em um provedor focado em privacidade.** [Proton Mail](https://proton.me/mail) e [Tuta](https://tuta.com/) (antes Tutanota) têm plano gratuito, não pedem dados pessoais e criptografam a caixa de entrada. Crie uma só para o campus.
+- **Um alias que encaminha para sua caixa de sempre.** Você dá um endereço diferente ao campus e os e-mails chegam onde você já lê: [SimpleLogin](https://simplelogin.io/), [addy.io](https://addy.io/) ou [DuckDuckGo Email Protection](https://duckduckgo.com/email/). Se um dia incomodar, você desativa o alias e pronto, sem mexer na sua conta.
+
+Com qualquer uma das duas opções você recebe os avisos do campus e seu endereço pessoal continua sem aparecer em lugar nenhum.
+
+{% aside type="note" title="No roadmap" %}
+Temos no roadmap desenvolver um sistema de comunicação por Nostr dentro do Moodle, para que as contas Nostr possam receber os avisos do campus sem abrir mão da privacidade nem precisar dar um e-mail. Até lá, as duas opções são as de cima.
+{% /aside %}
+
+## Erros comuns
+
+| Mensagem | O que significa | O que fazer |
+| --- | --- | --- |
+| *Nenhuma extensão Nostr encontrada* | O navegador não tem uma extensão NIP-07 ativa | Instale Alby ou nos2x e recarregue a página |
+| *A extensão negou o acesso* | Você recusou compartilhar a chave pública | Repita e aceite a permissão na extensão |
+| *A assinatura foi cancelada* | Você recusou assinar a solicitação | Repita e aceite a assinatura |
+| *Não foi possível obter o desafio* | A página ficou aberta por tempo demais | Recarregue a página e tente de novo |
+| *Erro de rede* | Sem conexão ou o relay não responde | Verifique sua conexão e tente de novo |
+
+## Privacidade e segurança
+
+- O campus recebe só sua chave pública e uma assinatura. Não pode publicar em seu nome nem acessar suas mensagens.
+- A assinatura é feita sobre um desafio único com a URL do campus, então não pode ser reutilizada em outro site.
+- O plugin que torna esse login possível é software livre desenvolvido pela ISMOS: [moodle-auth_nostr no GitHub](https://github.com/LibreriadeSatoshi/moodle-auth_nostr).

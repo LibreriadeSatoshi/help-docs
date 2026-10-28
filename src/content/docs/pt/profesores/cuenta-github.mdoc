@@ -1,0 +1,63 @@
+---
+title: Criar uma conta no GitHub
+description: 'Guia de cadastro no GitHub, com as decisões que convém tomar antes: nome público, e-mail privado e verificação em duas etapas.'
+sidebar:
+  order: 3
+---
+
+Seu curso vive e é revisado no GitHub, então você precisa de uma conta para [conectá-la como atribuição](/pt/profesores/github/). Se você já tem uma, pule esta página.
+
+{% aside title="Decida o nome antes de se cadastrar" %}
+Seu nome de usuário do GitHub é **público** e é o que aparecerá como autor do curso. Se você prefere um pseudônimo, crie-o agora: mudar depois quebra os links para o seu perfil e para as suas contribuições.
+{% /aside %}
+
+## Cadastro
+
+{% steps %}
+
+1. Abra [github.com/signup](https://github.com/signup).
+
+2. Escreva seu **e-mail**. Pode ser diferente do que você usa no campus.
+
+3. Escolha uma **senha**. O GitHub exige pelo menos 15 caracteres, ou 8 com um número e uma minúscula. Use um gerenciador de senhas.
+
+4. Escolha seu **nome de usuário**. É a parte pública: `github.com/seu-usuario`.
+
+5. Resolva o pequeno teste anti-robôs.
+
+6. Informe o **código de verificação** que chega ao seu e-mail. Se não aparecer, olhe no spam.
+
+7. O GitHub faz algumas perguntas de personalização. **Você pode pular todas.**
+
+8. Quando perguntar pelo plano, escolha o **Free**. Você não precisa de nada pago para publicar um curso.
+
+{% /steps %}
+
+## Ative a verificação em duas etapas
+
+O GitHub **exige** isso de todas as contas que contribuem com código, e enviar um curso é contribuir com código. Se você não ativar, o GitHub vai acabar pedindo e vai bloquear você no meio do envio.
+
+Vá em **Settings → Password and authentication → Two-factor authentication** e ative uma destas:
+
+- **App de autenticação** (Aegis, Ente Auth, 2FAS, Bitwarden…) — a opção recomendada.
+- **Chave de segurança** ou passkey.
+- **SMS** — só se você não tiver outra opção; é a menos segura.
+
+{% aside type="danger" title="Guarde os códigos de recuperação" %}
+O GitHub dá uma lista de códigos de uso único ao ativar o 2FA. Guarde-os fora do celular (impressos, ou no seu gerenciador de senhas). Sem eles, perder o telefone significa perder a conta, e com ela a autoria do seu curso.
+{% /aside %}
+
+## Se você usa pseudônimo, esconda seu e-mail
+
+Por padrão, os commits que você fizer podem expor seu endereço de e-mail. Em **Settings → Emails** marque:
+
+- **Keep my email addresses private** — o GitHub atribui a você um endereço `…@users.noreply.github.com` para os commits.
+- **Block command line pushes that expose my email** — impede que ele escape por descuido a partir do terminal.
+
+## E para entrar no campus?
+
+Essa mesma conta serve para [entrar no campus com o GitHub](/pt/acceso/login-github-google/). Atenção a uma diferença: para isso o campus precisa de **um e-mail público ou verificado** no seu perfil do GitHub. Se você ativou a privacidade do e-mail e também quer entrar no campus com o GitHub, use [usuário e senha](/pt/acceso/crear-cuenta/) ou [Google](/pt/acceso/login-github-google/) para o campus, e reserve o GitHub para a autoria do curso.
+
+## Já tem a conta
+
+Volte ao seu espaço de instrutor e [conecte-a no bloco de atribuição](/pt/profesores/github/).

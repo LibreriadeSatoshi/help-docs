@@ -1,0 +1,70 @@
+---
+title: Central de ajuda
+description: Guias passo a passo para entrar e usar a plataforma de cursos da ISMOS.
+template: splash
+hero:
+  tagline: Tudo o que você precisa para entrar no campus, gerenciar sua conta e acompanhar seus cursos.
+  image:
+    html: '<span class="hero-mark" aria-hidden="true"></span>'
+---
+
+{% audiencepicker
+   student="Sou estudante"
+   teacher="Sou professor"
+   campus="Ir para o campus"
+   campusHref="https://campus.ismos.xyz"
+   hint="Você está vendo só os guias do seu perfil. Clique de novo no mesmo botão para ver todos." /%}
+
+{% audience for="student" %}
+
+## Se você veio aprender
+
+{% cardgrid %}
+
+{% linkcard title="Acesso como visitante" description="Explore os cursos abertos sem criar conta." href="/pt/acceso/acceso-invitado/" /%}
+
+{% /cardgrid %}
+
+{% /audience %}
+
+{% audience for="teacher" %}
+
+## Se você veio ensinar
+
+{% cardgrid %}
+
+{% linkcard title="Criar sua conta de instrutor" description="Entre com sua conta da ISMOS e abra seu espaço de professor." href="/pt/profesores/registro/" /%}
+
+{% linkcard title="Completar seu perfil" description="O que é pedido, o que pode esperar e o que pode travar o envio." href="/pt/profesores/perfil/" /%}
+
+{% linkcard title="Criar uma conta no GitHub" description="Nome público, e-mail privado e verificação em duas etapas." href="/pt/profesores/cuenta-github/" /%}
+
+{% linkcard title="Conectar seu GitHub" description="A identidade com a qual o curso é atribuído a você." href="/pt/profesores/github/" /%}
+
+{% linkcard title="Propor um curso" description="O formulário de três etapas, até o Pull Request." href="/pt/profesores/crear-curso/" /%}
+
+{% linkcard title="Acompanhar o status do seu curso" description="Rascunhos, revisão no GitHub e volta ao campus." href="/pt/profesores/mis-cursos/" /%}
+
+{% /cardgrid %}
+
+{% /audience %}
+
+## Entrar no campus
+
+{% cardgrid stagger=true %}
+
+{% linkcard title="Estudante ou professor?" description="A página de entrada e para onde cada caminho leva você." href="/pt/acceso/entrar/" /%}
+
+{% linkcard title="Fazer login" description="As quatro formas de entrar no campus e qual é a melhor para você." href="/pt/acceso/iniciar-sesion/" /%}
+
+{% linkcard title="Entrar com Nostr" description="Sem senha nem e-mail: assine com sua extensão Nostr." href="/pt/acceso/login-nostr/" /%}
+
+{% linkcard title="Entrar com GitHub ou Google" description="Use uma conta que você já tem." href="/pt/acceso/login-github-google/" /%}
+
+{% linkcard title="Criar uma conta" description="Cadastro clássico com usuário e senha." href="/pt/acceso/crear-cuenta/" /%}
+
+{% linkcard title="Recuperar a senha" description="Se você esqueceu seu usuário ou sua senha." href="/pt/acceso/recuperar-contrasena/" /%}
+
+{% linkcard title="Seu perfil e idioma" description="Nome, foto, e-mail, idioma e notificações." href="/pt/cuenta/perfil-e-idioma/" /%}
+
+{% /cardgrid %}

@@ -49,6 +49,7 @@ export default defineConfig({
 			locales: {
 				root: { label: 'Español', lang: 'es' },
 				en: { label: 'English', lang: 'en' },
+				pt: { label: 'Português', lang: 'pt-BR' },
 			},
 			social: [
 				{ icon: 'github', label: 'GitHub', href: 'https://github.com/LibreriadeSatoshi' },
@@ -59,17 +60,17 @@ export default defineConfig({
 			sidebar: [
 				{
 					label: 'Acceso',
-					translations: { en: 'Access' },
+					translations: { en: 'Access', pt: 'Acesso' },
 					items: [{ autogenerate: { directory: 'acceso' } }],
 				},
 				{
 					label: 'Cuenta',
-					translations: { en: 'Account' },
+					translations: { en: 'Account', pt: 'Conta' },
 					items: [{ autogenerate: { directory: 'cuenta' } }],
 				},
 				{
 					label: 'Profesores',
-					translations: { en: 'Teachers' },
+					translations: { en: 'Teachers', pt: 'Professores' },
 					items: [{ autogenerate: { directory: 'profesores' } }],
 				},
 			],
